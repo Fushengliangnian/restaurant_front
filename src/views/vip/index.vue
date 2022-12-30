@@ -25,61 +25,16 @@
     <div class="card menu">
       <el-row>
         <el-col :span="24">
-            <div style="font-weight: bold; margin: 1vh 0 0 2vw;">我的功能</div>
+          <div style="font-weight: bold; margin: 1vh 0 0 2vw;">我的功能</div>
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="6">
+        <el-col v-for="(menu, index) in cardMenu" :key="index" :span="6" @click="clickToPath(menu.path)">
           <div class="grid-content">
-             <div><Tickets style="height: 3.6vh;" /></div>
-            <div>个人信息</div>
-          </div>
-        </el-col>
-        <el-col :span="6">
-          <div class="grid-content">
-            <div><Wallet style="height: 3.6vh;" /></div>
-            <div>在线充值</div>
-          </div>
-        </el-col>
-        <el-col :span="6">
-          <div class="grid-content">
-            <div><CreditCard style="height: 3.6vh;" /></div>
-            <div>消费汇总</div>
-          </div>
-        </el-col>
-        <el-col :span="6">
-          <div class="grid-content">
-            <div><Document style="height: 3.6vh;" /></div>
-<!--            <div><img src="~@/assets/img/bottomnav/shouye.png" alt="" style="width: 3.6vh;"></div>-->
-            <div>消费明细</div>
-          </div>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col :span="6">
-          <div class="grid-content">
-            <div><Coin style="height: 3.6vh;" /></div>
-<!--            <div><img src="~@/assets/img/bottomnav/shouye.png" alt="" style="width: 3.6vh;"></div>-->
-            <div>积分明细</div>
-          </div>
-        </el-col>
-        <el-col :span="6">
-          <div class="grid-content">
-            <div><Goods style="height: 3.6vh;" /></div>
-<!--            <div><img src="~@/assets/img/bottomnav/shouye.png" alt="" style="width: 3.6vh;"></div>-->
-            <div>积分兑换</div>
-          </div>
-        </el-col>
-        <el-col :span="6">
-          <div class="grid-content">
-            <div><img src="~@/assets/img/bottomnav/shouye.png" alt="" style="width: 3.6vh;"></div>
-            <div>会员特权</div>
-          </div>
-        </el-col>
-        <el-col :span="6">
-          <div class="grid-content">
-            <div><img src="~@/assets/img/bottomnav/shouye.png" alt="" style="width: 3.6vh;"></div>
-            <div>解除绑定</div>
+            <div>
+              <Tickets style="height: 3.6vh;"/>
+            </div>
+            <div>{{ menu.meta.title }}</div>
           </div>
         </el-col>
       </el-row>
@@ -89,15 +44,27 @@
 
 <script>
 
+import {vipRouter} from "@/router/vip";
+
 export default {
   name: "VipView",
   components: [],
   methods: {
-    readBalance () {
+    readBalance() {
       console.log("readBalance")
       this.$router.push("/vip/top-up")
+    },
+    clickToPath(path) {
+      console.log("clickToPath path: ", path)
+      console.log("router", this.$router)
+      this.$router.push(path)
     }
-  }
+  },
+  data() {
+    return {
+      cardMenu: vipRouter
+    }
+  },
 }
 </script>
 
