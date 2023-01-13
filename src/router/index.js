@@ -1,9 +1,10 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
 import VipView from '@/views/vip/index.vue'
+import ShopView from '@/views/shop/index.vue'
 import {vipRouter} from "@/router/vip";
 
 const Home = {template: '<div>Home</div>'}
-const Order = {template: '<div>Order</div>'}
+// const Order = {template: '<div>Order</div>'}
 const About = {template: '<div>About</div>'}
 
 let rootRoutes = [
@@ -18,9 +19,9 @@ let rootRoutes = [
         meta: {index: 1, title: '首页'},
     },
     {
-        path: '/order',
-        component: Order,
-        meta: {index: 2, title: '我要点餐'},
+        path: '/shop',
+        component: ShopView,
+        meta: {index: 2, title: '积分商城'},
     },
     {
         path: '/vip',

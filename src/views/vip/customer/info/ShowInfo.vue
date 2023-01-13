@@ -1,94 +1,66 @@
 <template>
-  <el-row>
-    <el-col :span="12">
-      <div class="grid-content" style="text-align: left">微信头像</div>
-    </el-col>
-    <el-col :span="12">
-      <div class="grid-content" style="text-align: right">{{ customerInfo.nickName }}</div>
-    </el-col>
-  </el-row>
-  <el-divider />
-  <el-row>
-    <el-col :span="12">
-      <div class="grid-content" style="text-align: left">微信昵称</div>
-    </el-col>
-    <el-col :span="12">
-      <div class="grid-content" style="text-align: right">{{ customerInfo.nickName }}</div>
-    </el-col>
-  </el-row>
-  <el-divider />
-  <el-row>
-    <el-col :span="12">
-      <div class="grid-content" style="text-align: left">姓名</div>
-    </el-col>
-    <el-col :span="12">
-      <div class="grid-content" style="text-align: right">{{ customerInfo.name }}</div>
-    </el-col>
-  </el-row>
-  <el-divider />
-  <el-row>
-    <el-col :span="12">
-      <div class="grid-content" style="text-align: left">性别</div>
-    </el-col>
-    <el-col :span="12">
-      <div class="grid-content" style="text-align: right">{{ customerInfo.gender }}</div>
-    </el-col>
-  </el-row>
-  <el-divider />
-  <el-row>
-    <el-col :span="12">
-      <div class="grid-content" style="text-align: left">生日</div>
-    </el-col>
-    <el-col :span="12">
-      <div class="grid-content" style="text-align: right">{{ customerInfo.birthdate }}</div>
-    </el-col>
-  </el-row>
-  <el-divider />
-  <el-row>
-    <el-col :span="12">
-      <div class="grid-content" style="text-align: left">移动电话</div>
-    </el-col>
-    <el-col :span="12">
-      <div class="grid-content" style="text-align: right">{{ customerInfo.mobilePhone }}</div>
-    </el-col>
-  </el-row>
-  <el-divider />
-  <el-row>
-    <el-col :span="12">
-      <div class="grid-content" style="text-align: left">详细地址</div>
-    </el-col>
-    <el-col :span="12">
-      <div class="grid-content" style="text-align: right; word-break:break-all; white-space: normal;">{{ customerInfo.address }}</div>
-    </el-col>
-  </el-row>
-  <!--  <el-descriptions-->
-  <!--      title="Vertical list without border"-->
-  <!--      :column="2"-->
-  <!--      direction="vertical"-->
-  <!--  >-->
-  <!--    <el-descriptions-item label="微信昵称">{{ customerInfo.nickName }}</el-descriptions-item>-->
-  <!--    <el-descriptions-item label="姓名">{{ customerInfo.name }}</el-descriptions-item>-->
-  <!--    <el-descriptions-item label="性别" :span="2">{{ customerInfo.gender }}</el-descriptions-item>-->
-  <!--    <el-descriptions-item label="生日">{{ customerInfo.birthdate }}</el-descriptions-item>-->
-  <!--    <el-descriptions-item label="移动电话"> {{ customerInfo.mobilePhone }}</el-descriptions-item>-->
-  <!--    <el-descriptions-item label="详细地址"> {{ customerInfo.address }}</el-descriptions-item>-->
-  <!--  </el-descriptions>-->
+  <div>
+    <van-cell-group class="padding-top" inset>
+      <van-cell title="头像">
+        <template #value>
+          <van-image
+              round
+              width="5rem"
+              height="5rem"
+              fit="cover"
+              src="https://fastly.jsdelivr.net/npm/@vant/assets/cat.jpeg"
+          />
+        </template>
+      </van-cell>
+
+      <van-cell title="微信昵称" :value="customerInfo.nickName"/>
+      <van-cell title="姓名" :value="customerInfo.name"/>
+      <van-cell title="性别" :value="customerInfo.gender"/>
+      <van-cell title="生日" :value="customerInfo.birthdate"/>
+      <van-cell title="移动电话" :value="customerInfo.mobilePhone"/>
+      <van-cell title="详细地址" :value="customerInfo.address"/>
+      <van-button class="edit-button" plain round type="primary" block @click="editInfo">编辑信息</van-button>
+    </van-cell-group>
+  </div>
+
+
 </template>
 
 <script>
+import {Button, Cell, CellGroup, Image as VanImage} from 'vant';
+
+
 export default {
   name: "ShowInfo",
   props: {
     info: Object
+  },
+  components: {
+    [Button.name]: Button,
+    [Cell.name]: Cell,
+    [CellGroup.name]: CellGroup,
+    [VanImage.name]: VanImage,
   },
   data() {
     return {
       customerInfo: this.info
     }
   },
+  methods: {
+    editInfo() {
+      console.log("--------- editInfo -------")
+      this.$emit('switchEditInfo')
+    }
+  }
 }
 </script>
 
 <style scoped>
+.padding-top {
+  padding-top: 2vh;
+}
 
+.edit-button {
+  margin: 2vh 0;
+}
 </style>

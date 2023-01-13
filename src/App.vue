@@ -3,18 +3,21 @@
   <!--  <HelloWorld msg="Welcome to Your Vue.js App"/>-->
 
   <router-view></router-view>
-  <base-layout></base-layout>
+  <base-layout-v2></base-layout-v2>
+<!--  <base-layout></base-layout>-->
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
-import BaseLayout from './layout/index.vue'
+// import BaseLayout from './layout/index.vue'
+import BaseLayoutV2 from './layout/V2.vue'
 
 
 export default {
   name: 'App',
   components: {
-    BaseLayout,
+    // BaseLayout,
+    BaseLayoutV2,
   }
 }
 </script>

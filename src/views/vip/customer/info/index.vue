@@ -1,6 +1,6 @@
 <template>
-  <show-info v-if="currentStatus === 'show'" :info="customerInfo"></show-info>
-  <edit-info v-else :info="customerInfo"/>
+  <show-info v-if="currentStatus === 'show'" :info="customerInfo" @switchEditInfo="switchEditInfo"></show-info>
+  <edit-info v-else :info="customerInfo" @switchShowInfo="switchShowInfo"/>
 </template>
 
 <script>
@@ -14,6 +14,7 @@ export default {
     return {
       customerInfo: {
         nickName: "浮生凉年丶",
+        thumbnail: "~@/assets/img/header.jpg",
         name: "浮生凉年丶",
         mobilePhone: "15177777777",
         gender: "男",
@@ -27,6 +28,14 @@ export default {
   methods: {
     onSubmit() {
       console.log('submit!')
+    },
+
+    switchEditInfo() {
+      this.currentStatus = 'edit'
+    },
+
+    switchShowInfo() {
+      this.currentStatus = 'show'
     }
   }
 }

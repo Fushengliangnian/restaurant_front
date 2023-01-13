@@ -1,7 +1,25 @@
 import axios from 'axios'
-import { MessageBox, Message } from 'element-ui'
+// import {MessageBox, Message} from 'element-ui'
+import { showConfirmDialog, showNotify } from 'vant'
+
 // import store from '@/store'
 // import { getToken } from '@/utils/auth'
+
+function showDialog(message) {
+  showConfirmDialog({
+    title: '需要登录',
+    theme: 'round-button',
+    message: message || 'Error'
+  }).then(() => {
+    // on confirm
+  }).catch(() => {
+    // on cancel
+  })
+}
+
+function showDangerNotify(message) {
+  showNotify({ message: message, type: 'danger' })
+}
 
 // create an axios instance
 const service = axios.create({
@@ -36,39 +54,33 @@ service.interceptors.request.use(
 // response interceptor
 service.interceptors.response.use(
   /**
-   * If you want to get http information such as headers or status
-   * Please return  response => response
-  */
+     * If you want to get http information such as headers or status
+     * Please return  response => response
+     */
 
   /**
-   * Determine the request status by custom code
-   * Here is just an example
-   * You can also judge the status by HTTP Status Code
-   */
+     * Determine the request status by custom code
+     * Here is just an example
+     * You can also judge the status by HTTP Status Code
+     */
   response => {
     const res = response.data
     console.log(res) // for debug
 
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 0) {
-      Message({
-        message: res.message || 'Error',
-        type: 'error',
-        duration: 5 * 1000
-      })
+      // Message({
+      //     message: res.message || 'Error',
+      //     type: 'error',
+      //     duration: 5 * 1000
+      // })
+      showDangerNotify(res.message)
 
+      showDialog(res.message)
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
       if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
         // to re-login
-        MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
-          confirmButtonText: 'Re-Login',
-          cancelButtonText: 'Cancel',
-          type: 'warning'
-        }).then(() => {
-          // store.dispatch('user/resetToken').then(() => {
-          //   location.reload()
-          // })
-        })
+        showDialog(res.message)
       }
       return Promise.reject(new Error(res.message || 'Error'))
     } else {
@@ -77,11 +89,12 @@ service.interceptors.response.use(
   },
   error => {
     console.log('err' + error) // for debug
-    Message({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
-    })
+    showDangerNotify(error.message)
+    // Message({
+    //     message: error.message,
+    //     type: 'error',
+    //     duration: 5 * 1000
+    // })
     return Promise.reject(error)
   }
 )

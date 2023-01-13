@@ -1,7 +1,11 @@
 import VipView from "@/views/vip";
 import TopUpView from "@/views/vip/top-up";
 import CustomerInfo from "@/views/vip/customer/info";
-// import StatisticsView from "@/views/vip/statistics";
+import ConsumeGather from "@/views/vip/consume/gather";
+import ConsumeStatistics from "@/views/vip/consume/statistics";
+import IntegralStatistics from "@/views/vip/integral/statistics";
+import CouponList from "@/views/vip/coupon/list";
+// import StatisticsView from "@/vip/vip/statistics";
 
 export const vipRouter = [
     {
@@ -19,23 +23,23 @@ export const vipRouter = [
     },
     {
         path: '/vip/consume/gather',
-        component: VipView,
+        component: ConsumeGather,
         meta: {index: 3, title: '消费汇总'},
     },
     {
         path: '/vip/consume/statistics',
-        component: VipView,
+        component: ConsumeStatistics,
         meta: {index: 3, title: '消费明细'},
     },
     {
         path: '/vip/integral/statistics',
-        component: VipView,
+        component: IntegralStatistics,
         meta: {index: 3, title: '积分明细'},
     },
     {
-        path: '/vip/integral/exchange',
-        component: VipView,
-        meta: {index: 3, title: '积分兑换'},
+        path: '/vip/coupon/list',
+        component: CouponList,
+        meta: {index: 3, title: '我的优惠券'},
     },
     {
         path: '/vip/customer/privilege',
