@@ -8,23 +8,23 @@
 </template>
 
 <script>
-import { Tabbar, TabbarItem } from 'vant';
+import { Tabbar, TabbarItem } from 'vant'
 
 export default {
-  name: "BaseLayoutV2",
+  name: 'BaseLayoutV2',
   components: {
     [Tabbar.name]: Tabbar,
-    [TabbarItem.name]: TabbarItem,
+    [TabbarItem.name]: TabbarItem
   },
   data() {
     return {
-      active: "home",
+      active: 'home'
     }
   },
   methods: {
-    clickTo () {
+    clickTo() {
       console.log(this.active)
-      const path = "/" + this.active
+      const path = '/' + this.active
       console.log(path)
       this.$router.replace(path)
     }

@@ -1,9 +1,12 @@
 <template>
   <div>
-    <van-dropdown-menu>
-      <van-dropdown-item v-model="typeValue" :options="typeOption" />
-      <van-dropdown-item v-model="sortValue" :options="sortOption" />
-    </van-dropdown-menu>
+    <van-sticky>
+      <van-dropdown-menu>
+        <van-dropdown-item v-model="typeValue" :options="typeOption" @change="onChange" />
+        <van-dropdown-item v-model="sortValue" :options="sortOption" @change="onChange" />
+      </van-dropdown-menu>
+    </van-sticky>
+
     <van-list
       :loading="loading"
       :finished="finished"
@@ -18,25 +21,29 @@
         desc="描述信息"
         thumb="https://fastly.jsdelivr.net/npm/@vant/assets/ipad.jpeg"
       />
+
     </van-list>
+    <van-back-top bottom="15vh" />
 
   </div>
 
 </template>
 
 <script>
-import { List, Tab, Tabs, Card, DropdownMenu, DropdownItem } from 'vant'
+import { Sticky, List, Tab, Tabs, Card, DropdownMenu, DropdownItem, BackTop } from 'vant'
 import { goodsListAPI } from '@/api/shop'
 
 export default {
   name: 'ShopView',
   components: {
+    [Sticky.name]: Sticky,
     [Tab.name]: Tab,
     [Tabs.name]: Tabs,
     [Card.name]: Card,
     [DropdownMenu.name]: DropdownMenu,
     [DropdownItem.name]: DropdownItem,
-    [List.name]: List
+    [List.name]: List,
+    [BackTop.name]: BackTop
   },
   data() {
     const typeValue = 0
@@ -51,6 +58,7 @@ export default {
       { text: '好评排序', value: 'b' },
       { text: '销量排序', value: 'c' }
     ]
+    const size = 10
     return {
       active: '',
       typeValue,
@@ -61,11 +69,13 @@ export default {
       finished: false,
       goodsResponse: {
         goodsList: [],
-        goodsTotal: 100
+        goodsTotal: size
       },
       goodsAPIParam: {
-        size: 10,
-        page: 0
+        size: size,
+        page: 1,
+        type: typeValue,
+        sort: sortValue
       }
     }
   },
@@ -74,12 +84,22 @@ export default {
   },
   methods: {
     onLoad() {
-      const param = {}
       if (this.goodsResponse.goodsTotal === this.goodsResponse.goodsList.length) {
         this.finished = true
         return
       }
-      this.getGoodsList(param)
+      this.getGoodsList()
+    },
+
+    onChange() {
+      this.goodsResponse.goodsList = []
+      const size = 10
+      this.goodsResponse.goodsTotal = size
+      this.goodsAPIParam.size = size
+      this.goodsAPIParam.page = 1
+      this.goodsAPIParam.sort = this.sortValue
+      this.goodsAPIParam.type = this.typeValue
+      this.getGoodsList()
     },
 
     getGoodsList() {
@@ -87,10 +107,11 @@ export default {
       goodsListAPI(
         this.goodsAPIParam
       ).then(response => {
-        this.goodsResponse.goodsList.push(...response.data)
-        this.goodsResponse.goodsTotal = response.data.total
+        // console.log(response.data)
+        this.goodsResponse.goodsList.push(...response.data.result.results)
+        this.goodsResponse.goodsTotal = response.data.result.count
       })
-      this.goodsAPIParam.size += 10
+      // this.goodsAPIParam.size += 10
       this.goodsAPIParam.page += 1
       this.loading = false
     }

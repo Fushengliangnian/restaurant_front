@@ -1,7 +1,7 @@
 <template>
   <div>
     <van-list
-      v-model:loading="loading"
+      :loading="loading"
       :finished="finished"
       finished-text="没有更多了"
       @load="onLoad"
@@ -24,9 +24,11 @@ export default {
     [CellGroup.name]: CellGroup
   },
   props: {
-    tableData: Object,
-    columnData: Array,
-    operationClick: Function
+    rowData: Array,
+    columnData: {
+      type: Array,
+      require: true
+    }
   },
   data() {
     return {
@@ -44,16 +46,7 @@ export default {
           amount: '100.20'
         }
       ],
-      columns: [
-        {
-          key: 'orderId',
-          value: '订单号'
-        },
-        {
-          key: 'amount',
-          value: '金额'
-        }
-      ],
+      columns: this.columnData,
       loading: false,
       finished: false
     }

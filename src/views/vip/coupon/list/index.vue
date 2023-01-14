@@ -1,31 +1,31 @@
 <template>
   <van-coupon-list
-      :coupons="coupons"
-      :chosen-coupon="chosenCoupon"
-      :disabled-coupons="disabledCoupons"
-      :show-close-button=false
-      :show-exchange-bar=false
-      @change="onChange"
-      @exchange="onExchange"
+    :coupons="coupons"
+    :chosen-coupon="chosenCoupon"
+    :disabled-coupons="disabledCoupons"
+    :show-close-button="false"
+    :show-exchange-bar="false"
+    @change="onChange"
+    @exchange="onExchange"
   />
   <van-popup
-      v-model:show="showDetail"
-      round
-      closeable
-      position="bottom"
-      :style="{ height: '30%' }"
+    :show="showDetail"
+    round
+    closeable
+    position="bottom"
+    :style="{ height: '30%' }"
   />
 </template>
 
 <script>
-import {CouponCell, CouponList, Popup} from 'vant';
+import { CouponCell, CouponList, Popup } from 'vant'
 
 export default {
-  name: "CouponList",
+  name: 'CouponList',
   components: {
     [CouponCell.name]: CouponCell,
     [CouponList.name]: CouponList,
-    [Popup.name]: Popup,
+    [Popup.name]: Popup
   },
   data() {
     const coupon = {
@@ -37,7 +37,7 @@ export default {
       startAt: 1489104000,
       endAt: 1514592000,
       valueDesc: '1.5',
-      unitDesc: '元',
+      unitDesc: '元'
     }
     return {
       coupons: [
@@ -50,8 +50,8 @@ export default {
   },
   methods: {
     onChange(index) {
-      this.showDetail = true;
-      this.chosenCoupon = index;
+      this.showDetail = true
+      this.chosenCoupon = index
     },
     onExchange() {
       this.coupons.push({
@@ -63,8 +63,8 @@ export default {
         startAt: 1489104000,
         endAt: 1514592000,
         valueDesc: '1.5',
-        unitDesc: '元',
-      });
+        unitDesc: '元'
+      })
     }
   }
 }

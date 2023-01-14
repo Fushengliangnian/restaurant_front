@@ -5,7 +5,7 @@
         <div class="card-img"><img src="~@/assets/img/vip-card/card.png" alt=""></div>
         <div class="top-right">会员</div>
         <div class="bottom-right">卡号：1009455631123445</div>
-        <div></div>
+        <div />
       </div>
       <div class="card-panel">
         <div class="card-panel-item" @click="readBalance">
@@ -32,7 +32,7 @@
         <el-col v-for="(menu, index) in cardMenu" :key="index" :span="6" @click="clickToPath(menu.path)">
           <div class="grid-content">
             <div>
-              <Tickets style="height: 3.6vh;"/>
+              <Tickets style="height: 3.6vh;" />
             </div>
             <div>{{ menu.meta.title }}</div>
           </div>
@@ -44,27 +44,27 @@
 
 <script>
 
-import {vipRouter} from "@/router/vip";
+import { vipRouter } from '@/router/vip'
 
 export default {
-  name: "VipView",
+  name: 'VipView',
   components: [],
-  methods: {
-    readBalance() {
-      console.log("readBalance")
-      this.$router.push("/vip/top-up")
-    },
-    clickToPath(path) {
-      console.log("clickToPath path: ", path)
-      console.log("router", this.$router)
-      this.$router.push(path)
-    }
-  },
   data() {
     return {
       cardMenu: vipRouter
     }
   },
+  methods: {
+    readBalance() {
+      console.log('readBalance')
+      this.$router.push('/pay/top-up')
+    },
+    clickToPath(path) {
+      console.log('clickToPath path: ', path)
+      console.log('router', this.$router)
+      this.$router.push(path)
+    }
+  }
 }
 </script>
 

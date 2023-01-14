@@ -2,8 +2,8 @@
   <!--  <img alt="Vue logo" src="./assets/logo.png">-->
   <!--  <HelloWorld msg="Welcome to Your Vue.js App"/>-->
 
-  <router-view></router-view>
-  <base-layout-v2></base-layout-v2>
+  <router-view style="padding-bottom: 12vh" />
+  <base-layout-v2 />
 <!--  <base-layout></base-layout>-->
 </template>
 
@@ -12,12 +12,11 @@
 // import BaseLayout from './layout/index.vue'
 import BaseLayoutV2 from './layout/V2.vue'
 
-
 export default {
   name: 'App',
   components: {
     // BaseLayout,
-    BaseLayoutV2,
+    BaseLayoutV2
   }
 }
 </script>
